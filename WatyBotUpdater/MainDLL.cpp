@@ -2,11 +2,11 @@
 #pragma unmanaged
 extern void InitializeTrainer(HINSTANCE hInstance);
 
-BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID)
+BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD fdwReason, LPVOID)
 {
 	if (fdwReason == DLL_PROCESS_ATTACH)
 	{
-		if (CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)&InitializeTrainer, NULL, NULL, NULL) == NULL) return FALSE;
+		if (CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)&InitializeTrainer, (LPVOID)hInstance, NULL, NULL) == NULL) return FALSE;
 	}
 	return TRUE;
 }

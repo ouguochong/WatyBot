@@ -6,7 +6,7 @@ public ref class Address
 public:
 	Address(){}
 
-	enum class AddressType{ Address, Pointer, OffsetBYTE, OffsetWORD };
+	enum class AddressType{ Address, Pointer, OffsetBYTE, OffsetWORD, CallJump };
 
 	[XmlAttribute]
 	property String^ Name;

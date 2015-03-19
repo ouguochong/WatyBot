@@ -13,8 +13,9 @@ using namespace std;
 
 void *lpvMapleBase = NULL;
 DWORD dwMapleSize = 0;
+HMODULE hModule = NULL;
 
-void CreateGUI(void)
+void CreateGUI()
 {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
@@ -31,6 +32,7 @@ void InitializeTrainer(HINSTANCE hInstance)
 
 	if (!Directory::Exists(MyForm::AppDataDir))	Directory::CreateDirectory(MyForm::AppDataDir);
 
+	hModule = (HMODULE)hInstance;
 	Threading::Thread^ tMain = gcnew Threading::Thread(gcnew Threading::ThreadStart(CreateGUI));
 	tMain->SetApartmentState(Threading::ApartmentState::STA);
 	tMain->Start();
@@ -55,10 +57,11 @@ Void MyForm::update_Click(System::Object^  sender, System::EventArgs^  e)
 		String^ Addy = "ERROR";
 		if (pf.dwResult) // If the search got a result
 		{
-			if (address->Type == Address::AddressType::Address) Addy = pf.dwResult.ToString("X");
-			if (address->Type == Address::AddressType::Pointer) Addy = (*(DWORD*)((DWORD)pf.dwResult + 2)).ToString("X");
-			if (address->Type == Address::AddressType::OffsetBYTE) Addy = (*(BYTE*)((DWORD)pf.dwResult + 2)).ToString("X");
-			if (address->Type == Address::AddressType::OffsetWORD) Addy = (*(WORD*)((DWORD)pf.dwResult + 2)).ToString("X");
+			if (address->Type == Address::AddressType::Address) Addy = pf.dwResult.ToString("X8");
+			if (address->Type == Address::AddressType::Pointer) Addy = (*(DWORD*)(pf.dwResult + 2)).ToString("X8");
+			if (address->Type == Address::AddressType::OffsetBYTE) Addy = (*(BYTE*)(pf.dwResult + 2)).ToString("X2");
+			if (address->Type == Address::AddressType::OffsetWORD) Addy = (*(WORD*)(pf.dwResult + 2)).ToString("X4");
+			if (address->Type == Address::AddressType::CallJump) Addy = (pf.dwResult + 5 + *(int *)(pf.dwResult + 1)).ToString("X8");
 			SuccesCount++;
 		}
 
@@ -130,6 +133,10 @@ Void MyForm::ReadXmlData()
 		{
 			if (stream) delete (IDisposable^)stream;
 		}
+	}
+	else 
+	{
+		addressList = gcnew List<Address^>;
 	}
 }
 

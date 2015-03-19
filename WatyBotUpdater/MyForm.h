@@ -98,13 +98,13 @@ namespace WatyBotUpdater
 			this->updateToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->loadDifferentFileItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->saveAOBItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->openAppdataToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->tbName = (gcnew System::Windows::Forms::TextBox());
 			this->ddbType = (gcnew System::Windows::Forms::ComboBox());
 			this->gbNewAOB = (gcnew System::Windows::Forms::GroupBox());
 			this->bAdd = (gcnew System::Windows::Forms::Button());
 			this->tbComment = (gcnew System::Windows::Forms::TextBox());
 			this->tbAOB = (gcnew System::Windows::Forms::TextBox());
-			this->openAppdataToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->contextMenuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->AOBFileWatcher))->BeginInit();
 			this->menuStrip1->SuspendLayout();
@@ -242,6 +242,13 @@ namespace WatyBotUpdater
 			this->saveAOBItem->Text = L"Save AOBs.xml";
 			this->saveAOBItem->Click += gcnew System::EventHandler(this, &MyForm::saveAOBItem_Click);
 			// 
+			// openAppdataToolStripMenuItem
+			// 
+			this->openAppdataToolStripMenuItem->Name = L"openAppdataToolStripMenuItem";
+			this->openAppdataToolStripMenuItem->Size = System::Drawing::Size(116, 20);
+			this->openAppdataToolStripMenuItem->Text = L"Open %Appdata%";
+			this->openAppdataToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::openAppdataToolStripMenuItem_Click);
+			// 
 			// tbName
 			// 
 			this->tbName->Location = System::Drawing::Point(6, 19);
@@ -253,7 +260,10 @@ namespace WatyBotUpdater
 			// 
 			this->ddbType->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 			this->ddbType->FormattingEnabled = true;
-			this->ddbType->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Address", L"Pointer", L"Offset" });
+			this->ddbType->Items->AddRange(gcnew cli::array< System::Object^  >(5) {
+				L"Address", L"Pointer", L"OffsetBYTE", L"OffsetWORD",
+					L"Call/Jump"
+			});
 			this->ddbType->Location = System::Drawing::Point(129, 19);
 			this->ddbType->Name = L"ddbType";
 			this->ddbType->Size = System::Drawing::Size(103, 21);
@@ -295,13 +305,6 @@ namespace WatyBotUpdater
 			this->tbAOB->Name = L"tbAOB";
 			this->tbAOB->Size = System::Drawing::Size(345, 20);
 			this->tbAOB->TabIndex = 8;
-			// 
-			// openAppdataToolStripMenuItem
-			// 
-			this->openAppdataToolStripMenuItem->Name = L"openAppdataToolStripMenuItem";
-			this->openAppdataToolStripMenuItem->Size = System::Drawing::Size(116, 20);
-			this->openAppdataToolStripMenuItem->Text = L"Open %Appdata%";
-			this->openAppdataToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::openAppdataToolStripMenuItem_Click);
 			// 
 			// MyForm
 			// 
